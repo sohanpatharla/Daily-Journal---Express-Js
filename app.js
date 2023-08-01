@@ -20,7 +20,12 @@ app.use(express.static("public"));
 
 mongoose.connect("mongodb+srv://sohanpatharla:<password>@cluster0.ijh4lvp.mongodb.net/?retryWrites=true&w=majority/blogDB");
 
-var posts=[];
+const postsSchema={
+  Title:String,
+  Body:String
+};
+
+const Post=mongoose.model("Post",postsSchema);
 
 app.get("/",function(req,res){
   res.render("home",{
@@ -42,10 +47,8 @@ app.get("/compose",function(req,res){
 });
 
 app.post("/compose",function(req,res){
-  const post={
-    title: req.body.postTitle,
-    content:req.body.postBody
-  };
+  const postTitle=req.body.postTitle;
+  const postBody=req.body.postBody;
   posts.push(post);
   res.redirect("/");
 })
