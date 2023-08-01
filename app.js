@@ -49,7 +49,13 @@ app.get("/compose",function(req,res){
 app.post("/compose",function(req,res){
   const postTitle=req.body.postTitle;
   const postBody=req.body.postBody;
-  posts.push(post);
+
+  const post=new Post({
+    Title:postTitle,
+    Body:postBody
+  });
+
+  post.save();
   res.redirect("/");
 })
 
