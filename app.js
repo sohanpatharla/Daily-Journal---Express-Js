@@ -30,7 +30,7 @@ const Post=mongoose.model("Post",postsSchema);
 app.get("/",function(req,res){
   res.render("home",{
     homeStartingContent:homeStartingContent,
-    posts:posts
+    post:post
   }); 
 });
 
