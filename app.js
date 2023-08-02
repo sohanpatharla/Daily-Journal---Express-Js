@@ -20,17 +20,17 @@ app.use(express.static("public"));
 
 mongoose.connect("mongodb+srv://sohanpatharla:sohanpatharla@cluster0.ijh4lvp.mongodb.net/blogDB");
 
-const postsSchema={
+const postSchema={
   Title:String,
   Body:String
 };
 
-const Post=mongoose.model("Post",postsSchema);
+const Post=mongoose.model("Post",postSchema);
 
 app.get("/",function(req,res){
   res.render("home",{
     homeStartingContent:homeStartingContent,
-    post:post
+    posts:posts
   }); 
 });
 
