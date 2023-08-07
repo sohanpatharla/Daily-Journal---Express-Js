@@ -27,12 +27,13 @@ const postSchema={
 };
 
 const Post=mongoose.model("Post",postSchema);
-
 app.get("/",function(req,res){
-  res.render("home",{
-    homeStartingContent:homeStartingContent,
-    posts:posts
-  }); 
+  Post.find({}).then((posts)=>{
+    res.render("home",{
+      homeStartingContent:homeStartingContent,
+      posts:posts
+    })
+  })
 });
 
 app.get("/about",function(req,res){
@@ -60,20 +61,17 @@ app.post("/compose",function(req,res){
   res.redirect("/");
 })
 
-app.get("/posts/:sims",function(req,res){
-  const reqTitle= _.lowerCase(req.params.sims);
-  posts.forEach(function(i){
-    stTitle= _.lowerCase(i.title)
-    if(reqTitle==stTitle)
-    {res.render("post",{
-      title:i.title,
-     content:i.content
-  })
-} 
-
-  });
-  
+app.get("/posts/:postId",function(req,res){
+  const reqPostId=req.params.postId;
+  Post.findOne({_id:reqPostId}).then((post)=>
+  {
+    res.render("post",{
+      title:post.Title,
+     content:post.Body
+    })
+  })  
 });
+
 
 
 
